@@ -1,0 +1,135 @@
+$cellHeight: 40px;
+$rowGap: 8px;
+
+@mixin invisibleInput {
+  border: 0px;
+  clip: rect(0px, 0px, 0px, 0px);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0px;
+  overflow: hidden;
+  white-space: nowrap;
+  position: absolute;
+}
+
+.className {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.machine {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 8px;
+  row-gap: 16px;
+}
+
+.labelList {
+  place-self: end;
+  display: flex;
+  flex-direction: column;
+  row-gap: $rowGap;
+
+  & > * {
+    height: $cellHeight;
+    display: grid;
+    place-content: center;
+  }
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  row-gap: $rowGap;
+}
+
+.lamp {
+  $lamp: &;
+
+  &__input {
+    @include invisibleInput;
+
+    &:checked + #{$lamp}__content {
+      background-color: #ff5b06;
+    }
+  }
+
+  &__content {
+    width: 14px;
+    height: 14px;
+    border-radius: 8px;
+    background-color: #ccc;
+    margin: 0 8px;
+  }
+}
+
+.cellList {
+  display: flex;
+  flex-direction: column;
+  row-gap: $rowGap;
+}
+
+.row {
+  display: flex;
+  column-gap: 8px;
+
+  & > *:nth-child(4n):not(:last-child) {
+    margin-right: 8px;
+  }
+}
+
+.cell {
+  $cell: &;
+  cursor: pointer;
+
+  &__input {
+    @include invisibleInput;
+
+    &:checked + #{$cell}__content {
+      background-color: #005da5;
+    }
+
+    &:focus-visible + #{$cell}__content {
+      outline: solid 4px #90cdf4;
+      outline-offset: 2px;
+    }
+  }
+
+  &__content {
+    width: 30px;
+    height: $cellHeight;
+    border-radius: 3px;
+    background-color: #ccc;
+  }
+}
+
+.fader {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+  grid-column: 2;
+}
+
+.button {
+  border: none;
+  cursor: pointer;
+  appearance: none;
+  background-color: #005da5;
+  color: white;
+  width: 80px;
+  line-height: 2;
+  border-radius: 4px;
+  font-weight: 700;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #4281b2;
+  }
+}
